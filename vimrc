@@ -1,19 +1,17 @@
+"             Sabin Purice
+
+" Vundle Setup {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" ==============================================================================
-" Vundle Setup
-" ==============================================================================
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 " call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 
-" ------------------------------------------------------------------------------
 " THEMES - COLORS 
 Plugin 'tomasr/molokai'
 Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
@@ -23,29 +21,56 @@ Plugin 'sjl/badwolf'
 " Rainbow Parantheses
 " Plugin 'kien/rainbow_parentheses.vim'
 
+Plugin 'kien/ctrlp.vim'                 " Ctr-P Plugin      - fuzzy search
+Plugin 'scrooloose/nerdtree'            " NERDTree          - file browser
+Plugin 'Lokaltog/vim-powerline.git'     " Powerline         - status line
+Plugin 'terryma/vim-multiple-cursors'   " Multiple Cursors  - sublime
+" Plugin 'SirVer/ultisnips'             " ultiSnips         - Snippets
+Plugin 'elentok/plaintasks.vim'         " Plain Tasks Vim
+Plugin 'klen/python-mode'               " Python-mode
+Plugin 'davidhalter/jedi-vim'           " Jedi Vim          - autocomplete
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" To ignore plugin indent changes, instead use:
+" filetype plugin on
+
+" see :h vundle for more details or wiki for FAQ
+" }}}
+
+" Colors {{{
+" ------------------------------------------------------------------------------
+syntax enable
+" set background=dark
+color Tomorrow-Night-Eighties
+" color Tomorrow-Night-Bright
+" color Tomorrow-Night
+" color badwolf
+" }}}
+
+" Spaces & Tabs {{{
+set tabstop=4
+set expandtab
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+
+set modelines=1
+" }}}
+
+" Plugin Settings {{{
 " Ctr-P Plugin - fuzzy search
-Plugin 'kien/ctrlp.vim'
 let g:ctrlp_max_height = 30
 
-" NERDTree - file browser
-Plugin 'scrooloose/nerdtree'
 
 " Powerline
-Plugin 'Lokaltog/vim-powerline.git'
 set laststatus=2
 set noshowmode
 
-" Multiple Cursors
-Plugin 'terryma/vim-multiple-cursors'
-
-" ultiSnips - Snippets
-" Plugin 'SirVer/ultisnips'
-
-" Plain Tasks Vim
-Plugin 'elentok/plaintasks.vim'
 
 " Python Mode
-Plugin 'klen/python-mode'
 
 " KEYS
 " K				Show python docs
@@ -91,70 +116,91 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
 
-Plugin 'davidhalter/jedi-vim'
+" Jedi Vim
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
+" }}}
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" To ignore plugin indent changes, instead use:
-" filetype plugin on
-
-"  BRIEF HELP 
-" :PluginList       - lists configured plugins
-" :PluginInstall    - append `!` to update or just :PluginUpdate
-" :PluginSearch foo - append `!` to refresh local che
-" :PluginClean      - append `!` to auto-approve removal
-
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-" ==============================================================================
-" Python IDE Setup
-" ==============================================================================
-
-" Color Scheme Settings
-syntax enable
-" set background=dark
-color Tomorrow-Night-Eighties
-" color Tomorrow-Night-Bright
-" color Tomorrow-Night
-" color badwolf
-
-" Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
-
-" Rebind <Leader> key
-let mapleader = ","
-
-" Better cursor
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
-" Better copy & paste
-set pastetoggle=<F2>
-set clipboard=unnamed
-
-" Better Folding
-nnoremap <Space> za
-nnoremap <S-Space> zA
-vnoremap <S-Space> zA
-
-" Better Mouse & Backspace
-set mouse=a
-set bs=2
-
-" Showing line numbers and length
+" UI Config {{{
 set relativenumber
+
 set tw=79   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
 set colorcolumn=80
 highlight ColorColumn ctermbg=233
 
-" Highlit excess line length
+set wildmenu
+set lazyredraw
+" }}}
+
+" Searching {{{
+set hlsearch    " search as characters are entered
+set incsearch   " highlight matches
+
+set ignorecase
+set smartcase
+
+nnoremap <leader><space> :nohlsearch<CR>
+" }}}
+
+" Folding {{{
+nnoremap <Space> za
+nnoremap <S-Space> zA
+vnoremap <S-Space> zA
+" }}}
+
+" Movement {{{
+nnoremap B ^
+nnoremap E $
+vnoremap B ^
+vnoremap E $
+
+nnoremap $ <nop>
+nnoremap ^ <nop>
+
+nnoremap gV `[v`]
+
+" Mappings to move lines
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>==gv
+vnoremap <C-k> :m '<-2<CR>==gv
+" }}}
+
+" Leader Shortcuts {{{
+let mapleader = ","
+
+inoremap jk <esc>
+" }}}
+
+" Better cursor & stuff {{{
+set ttyfast
+
+" Cursor
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" Copy & paste
+set pastetoggle=<F2>
+set clipboard=unnamed
+
+" Better Mouse & Backspace
+set mouse=a
+set bs=2
+
+" Useful settings
+set history=700
+set undolevels=700
+" }}}
+
+" MISC {{{
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Highlight excess line length
 augroup vimrc_autocmds
     autocmd!
     " highlight characters past column 80
@@ -163,30 +209,17 @@ augroup vimrc_autocmds
     autocmd FileType python set nowrap
     augroup END
 
-" Useful settings
-set history=700
-set undolevels=700
 
 " Jump to Last Position
 if has("autocmd")
 	  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" Real programmers don't use TABs but spaces
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set shiftround
-set expandtab
-
-" Make search case insensitive
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
-
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
 set nobackup
 set nowritebackup
-set noswapfile 
+set noswapfile
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0
