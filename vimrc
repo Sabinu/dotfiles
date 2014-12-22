@@ -1,4 +1,4 @@
-"             Sabin Purice
+" Sabin Purice
 
 " Vundle Setup {{{
 set nocompatible              " be iMproved, required
@@ -29,6 +29,7 @@ Plugin 'terryma/vim-multiple-cursors'   " Multiple Cursors  - sublime
 Plugin 'elentok/plaintasks.vim'         " Plain Tasks Vim
 Plugin 'klen/python-mode'               " Python-mode
 Plugin 'davidhalter/jedi-vim'           " Jedi Vim          - autocomplete
+Plugin 'sjl/gundo.vim'                  " gUndo             - graphical undo
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -39,9 +40,7 @@ filetype plugin indent on    " required
 
 " see :h vundle for more details or wiki for FAQ
 " }}}
-
 " Colors {{{
-" ------------------------------------------------------------------------------
 syntax enable
 " set background=dark
 color Tomorrow-Night-Eighties
@@ -49,7 +48,6 @@ color Tomorrow-Night-Eighties
 " color Tomorrow-Night
 " color badwolf
 " }}}
-
 " Spaces & Tabs {{{
 set tabstop=4
 set expandtab
@@ -59,16 +57,14 @@ set shiftround
 
 set modelines=1
 " }}}
-
 " Plugin Settings {{{
+
 " Ctr-P Plugin - fuzzy search
 let g:ctrlp_max_height = 30
-
 
 " Powerline
 set laststatus=2
 set noshowmode
-
 
 " Python Mode
 
@@ -117,10 +113,9 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 " Jedi Vim
-let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
+let g:jedi#popup_on_dot = 1
+let g:jedi#popup_select_first = 1
 " }}}
-
 " UI Config {{{
 set relativenumber
 
@@ -133,7 +128,6 @@ highlight ColorColumn ctermbg=233
 set wildmenu
 set lazyredraw
 " }}}
-
 " Searching {{{
 set hlsearch    " search as characters are entered
 set incsearch   " highlight matches
@@ -143,13 +137,11 @@ set smartcase
 
 nnoremap <leader><space> :nohlsearch<CR>
 " }}}
-
 " Folding {{{
 nnoremap <Space> za
 nnoremap <S-Space> zA
 vnoremap <S-Space> zA
 " }}}
-
 " Movement {{{
 nnoremap B ^
 nnoremap E $
@@ -169,13 +161,13 @@ inoremap <C-k> <Esc>:m .-2<CR>==gi
 vnoremap <C-j> :m '>+1<CR>==gv
 vnoremap <C-k> :m '<-2<CR>==gv
 " }}}
-
 " Leader Shortcuts {{{
 let mapleader = ","
 
 inoremap jk <esc>
-" }}}
 
+nnoremap <leader>u :GundoToggle<CR>
+" }}}
 " Better cursor & stuff {{{
 set ttyfast
 
@@ -195,7 +187,6 @@ set bs=2
 set history=700
 set undolevels=700
 " }}}
-
 " MISC {{{
 " Automatic reloading of .vimrc
 autocmd! bufwritepost .vimrc source %
