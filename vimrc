@@ -22,7 +22,8 @@ Plugin 'sjl/badwolf'
 " Plugin 'kien/rainbow_parentheses.vim'
 
 Plugin 'kien/ctrlp.vim'                 " Ctr-P Plugin      - fuzzy search
-Plugin 'scrooloose/nerdtree'            " NERDTree          - file browser
+Plugin 'scrooloose/nerdtree'            " NERD Tree         - file browser
+Plugin 'scrooloose/nerdcommenter'       " NERD Commenter
 Plugin 'Lokaltog/vim-powerline.git'     " Powerline         - status line
 Plugin 'terryma/vim-multiple-cursors'   " Multiple Cursors  - sublime
 " Plugin 'SirVer/ultisnips'             " ultiSnips         - Snippets
@@ -30,6 +31,7 @@ Plugin 'elentok/plaintasks.vim'         " Plain Tasks Vim
 Plugin 'klen/python-mode'               " Python-mode
 Plugin 'davidhalter/jedi-vim'           " Jedi Vim          - autocomplete
 Plugin 'sjl/gundo.vim'                  " gUndo             - graphical undo
+Plugin 'JuliaLang/julia-vim'            " Julia 4 Vim
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -144,12 +146,12 @@ vnoremap <S-Space> zA
 " }}}
 " Movement {{{
 nnoremap B ^
-nnoremap E $
 vnoremap B ^
+nnoremap E $
 vnoremap E $
 
-nnoremap $ <nop>
-nnoremap ^ <nop>
+" nnoremap $ <nop>
+" nnoremap ^ <nop>
 
 nnoremap gV `[v`]
 
